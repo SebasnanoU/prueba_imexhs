@@ -30,11 +30,12 @@ understand its implementation.
 
  Let's address these features progressively. First, we need a pseudocode function that receives an array as input and iterates over the possible sizes of the subarrays, i.e., from 1 to n, being n the size of the input array. 
 
-```
+```Java
 function findMaxSub(array : integer_array)
     integer i = 1
     loop ( while i <= size_of(array) )
         // TODO
+        i = i +1
     end_loop
 ```
 
@@ -44,7 +45,7 @@ Note that in each subrray, we sliced the original array by indexing different po
 
 To do this, let's create 2 variables holding the start and stop indexes for the subarray. Then, we can increase these indexes in a loop until we have covered all the array. In each iteration, the first value of the stop index will be determined by the currrent subarray size (i.e., __i__)
 
-```
+```Java
 function findMaxSub(array : integer_array)
     integer i = 1
     loop ( while i <= size_of(array) )
@@ -55,12 +56,13 @@ function findMaxSub(array : integer_array)
             start_idx = start_idx + 1
             stop_idx = stop_idx + 1
         end_loop
+        i = i + 1
     end_loop
 ```
 
 Now, we can select the subarray and calculate the sum of its elements.
 
-```
+```Java
 function findMaxSub(array : integer_array)
     integer i = 1
     loop ( while i <= size_of(array) )
@@ -73,12 +75,13 @@ function findMaxSub(array : integer_array)
             start_idx = start_idx + 1
             stop_idx = stop_idx + 1
         end_loop
+        i = i + 1
     end_loop
 ```
 
 We still need to determine the largest sum. To do this, let's assume that the first subarray of size 1 has the largest sum, then during the second loop we can compare the sum of the current subarray, with the previous one.
 
-```
+```Java
 function findMaxSub(array : integer_array)
     integer i = 1
     integer maximum = array[0]
@@ -88,13 +91,17 @@ function findMaxSub(array : integer_array)
         loop ( while stop_idx <= size_of(array) )
             integer_array subarray = array[from start_idx to stop_idx]
             interer sum_subarray = sum_of(sub_array)
-            
             if sum_subarray > maximum then
                 maximum = sub_array
             end_if
-
             start_idx = start_idx + 1
             stop_idx = stop_idx + 1
         end_loop
+        i = i + 1
     end_loop
+    return maximum
 ```
+
+At the end of the execution, we will have the maximum value, let's return it.
+
+Please find an implementation of this pseudocode using Python at [Google Colab](https://colab.research.google.com/drive/14rEejJrkKoeFNXcSYxYaL3VMXXAZ6HRP?usp=sharing).
