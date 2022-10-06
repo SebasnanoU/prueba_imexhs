@@ -1,0 +1,70 @@
+
+<p>
+  <mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span><b>Software Development Test @ IMEXHS</b></span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon>favorite</mat-icon>
+    </button>
+  </mat-toolbar>
+</p>
+
+<p class="centered">
+  This simple web application allows you to select a binary image and calculate the area of black regions inside of it.
+</p>
+
+
+<mat-card id="card" style="text-align: center;">
+	<mat-card-title>
+		Image Info
+	</mat-card-title><br>
+
+  <div class="preview" *ngIf="imgFile">
+    <img [src]="imgFile" style="width:400px; height:250px">
+  </div><br>
+
+	<mat-card-content>
+
+    <p style="font-size:medium; ">
+      Feel free to add a description of the image you wish to analyze.
+    </p>
+
+		<mat-form-field class="example-full-width" appearance="fill" >
+			<mat-label>File Description</mat-label>
+			<input matInput placeholder="Ex. image contained black stain">
+		</mat-form-field><br>
+
+    <form [formGroup]="uploadForm" (ngSubmit)="upload()">
+
+      <div class="form-group" >
+
+        <input  style="font-size:medium; width: 500px;"
+                type="file"
+                class="form-control"
+                id="file"
+                formControlName="file"
+                (change)="onImageChange($event)" >
+
+        <div *ngIf="uf.file.touched && uf.file.invalid" class="alert alert-danger">
+          <div *ngIf="uf.file.errors.required">Image file is required.</div>
+        </div>
+      </div>
+
+      <br>
+
+      <p>
+        The black area is: {{average_area}} %
+      </p>
+
+
+    </form>
+
+    <button class="btn btn-success" type="submit" (click)="onSave()">Calculate Area</button>
+
+	</mat-card-content>
+
+
+
